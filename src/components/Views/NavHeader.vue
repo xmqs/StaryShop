@@ -10,7 +10,7 @@
     <div class="navbar">
       <div class="navbar-left-container">
         <a href="/">
-          <img class="navbar-brand-logo" src="./../../../static/test.jpg"></a>
+          <img class="navbar-brand-logo" src="https://staticlive.douyucdn.cn/upload/signs/201703031609518839.png"></a>
       </div>
       <div class="navbar-right-container" style="display: flex;">
         <div class="navbar-menu-container">
