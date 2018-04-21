@@ -37,7 +37,7 @@
                     <div class="name">{{item.productName}}</div>
                     <div class="price">{{item.salePrice}}</div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">Buy</a>
+                      <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">Buy</a>
                     </div>
                   </div>
                 </li>
@@ -102,6 +102,7 @@
         this.getGoodList(false);
       },
       methods:{
+        //获取商品
         getGoodList(flag){
           var param = {
             page:this.page,
@@ -110,7 +111,7 @@
             priceLevel:this.priceChecked
           }
           this.loadding = true;
-          axios.get('/goods',{params:param}).then((resposne)=>{
+          axios.get('/goods/list',{params:param}).then((resposne)=>{
             this.loadding = false;
             if (resposne.status == "200"){
               if(flag){
@@ -127,7 +128,6 @@
               }
             }else {
               this.goodsList = {};
-              console.log(130);
               this.busy = true;
             }
 
@@ -154,6 +154,17 @@
           this.priceChecked = index;
           this.page = 1;
           this.getGoodList();
+        },
+        addCart(productId){
+          axios.post("/goods/addCart",{
+            productId:productId
+          }).then((res)=>{
+            if(res.data.status == 0){
+              alert("suc")
+            }else{
+              alert(res.data.msg);
+            }
+          })
         }
       }
     }
