@@ -108,8 +108,8 @@ router.post("/addCart", function (req,res,next) {
               })
             }else{
               if(doc){
-                doc.productNum = 1;
-                doc.checked = 1;
+                doc._doc.productNum = 1;
+                doc._doc.checked = 1;
                 userDoc.cartList.push(doc);
                 userDoc.save(function (err2,doc2) {
                   if(err2){

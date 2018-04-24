@@ -48,7 +48,7 @@
               </li>
               <li class="regi_form_input noMargin">
                 <i class="icon IconPwd"></i>
-                <input type="password" tabindex="2"  name="password" v-model="userPwd" class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password">
+                <input type="password" tabindex="2"  name="password" v-model="userPwd" class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password" @keyup.enter="login">
               </li>
             </ul>
           </div>
@@ -76,6 +76,9 @@
           nickName:''
         }
       },
+      mounted(){
+        this.checkLogin();
+      },
       methods:{
         login(){
           if(!this.userName || !this.userPwd){
@@ -101,6 +104,14 @@
             let res = response.data;
             if(res.status == 0){
               this.nickName = '';
+            }
+          })
+        },
+        checkLogin(){
+          axios.get("/users/checkLogin"+this.userName).then((response)=>{
+            let res = response.data;
+            if(res.status == '0'){
+              this.nickName = res.result;
             }
           })
         }
@@ -176,5 +187,9 @@
     width: 25px;
     height: 25px;
     transform: scaleX(-1);
+  }
+  .btn:hover{
+    background-color: #ffe5e6;
+    transition: all .3s ease-out;
   }
 </style>

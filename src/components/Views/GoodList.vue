@@ -50,6 +50,19 @@
         </div>
       </div>
     </div>
+    <modal v-bind:mdShow="mdShow">
+      <p slot="message">请先登录否者无法加入到购物车中</p>
+      <div slot="btnGroup">
+        <a href="javascript:;" class="btn btn--m" @click="mdShow=false">确定</a>
+      </div>
+    </modal>
+    <modal v-bind:mdShow="mdShow">
+      <p slot="message">请先登录否者无法加入到购物车中</p>
+      <div slot="btnGroup">
+        <a href="javascript:;" class="btn btn--m" @click="mdShow=false">确定</a>
+      </div>
+    </modal>
+    <div class="md-overlay" v-if="mdShow" @click="mdShow=false"></div>
     <nav-footer></nav-footer>
   </div>
 </template>
@@ -61,13 +74,14 @@
   import NavHeader from "@/components/Views/NavHeader"
   import NavBread from "@/components/Views/NavBread"
   import NavFooter from "@/components/Views/NavFooter"
+  import Modal from "@/components/Modal"
 
   import axios from "axios"
 
     export default {
       name: "GoodList",
       components:{
-        NavHeader,NavBread,NavFooter
+        NavHeader,NavBread,NavFooter,Modal
       },
       data(){
         return{
@@ -95,10 +109,11 @@
           pageSize:8,
           busy:true,
           loadOver:true,
-          loadding:false
+          loadding:false,
+          mdShow:false
         }
       },
-      mounted:function () {
+      mounted() {
         this.getGoodList(false);
       },
       methods:{
@@ -162,10 +177,10 @@
             if(res.data.status == 0){
               alert("suc")
             }else{
-              alert(res.data.msg);
+              this.mdShow = true;
             }
           })
-        }
+        },
       }
     }
 </script>
