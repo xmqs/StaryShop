@@ -148,5 +148,24 @@ router.post("/cartEdit",function (req,res,next) {
 
 
 //改变选中状态
-
+router.post("/changeChecked",function (req,res,next) {
+  let userId = req.cookies.userId,productId = req.body.productId,productStatic = req.body.checked;
+  User.update({userid:userId,"cartList.priductId":productId},{
+    "cartList.$.checked":productStatic
+  },function (err,doc) {
+    if(err){
+      res.json({
+        status:'1',
+        msg:err.message(),
+        result:''
+      })
+    }else{
+      res.json({
+        status:"0",
+        msg:"",
+        result:"suc"
+      })
+    }
+  })
+})
 module.exports = router;

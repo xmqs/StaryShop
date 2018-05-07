@@ -63,7 +63,7 @@
                 <li v-for="item in cartList">
                   <div class="cart-tab-1">
                     <div class="cart-item-check">
-                      <a href="javascipt:;" class="checkbox-btn item-check-btn" v-bind:class="{'checked':item.checked}" @click="changeChecked(item)">
+                      <a href="javascipt:;" class="checkbox-btn item-check-btn" v-bind:class="{'checked':item.checked !== '0'}" @click="changeChecked(item)">
                         <svg class="icon icon-ok">
                           <use xlink:href="#icon-ok"></use>
                         </svg>
@@ -210,7 +210,13 @@
         })
       },
       changeChecked(item){
-        item.checked?item.checked=0:item.checked=1;
+        item.checked !== '0'?item.checked='0':item.checked='1';
+        axios.post("users/changeChecked",{
+          productId:item.productId,
+          checked:item.checked
+        }).then((response)=>{
+          let res = response.data;
+        })
       }
     }
   }
